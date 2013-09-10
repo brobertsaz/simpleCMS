@@ -1,6 +1,13 @@
 SimpleCMS::Application.routes.draw do
+  get "fixed_pages/home"
+
+  get "fixed_pages/logout"
+
+  get "fixed_pages/error"
+
   resources :users
 
+  match "/signup", to: "users#new"
 
   resources :comments
 
@@ -57,7 +64,7 @@ SimpleCMS::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'fixed_pages#home'
 
   # See how all your routes lay out with "rake routes"
 
