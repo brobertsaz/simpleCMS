@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.find(:all, :conditions => [ "user_id = ?", params[:user_id]], :order => "created_at DESC") || Post.find(:all, :order => "created_at ASC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @post = Post.new
+    @post = Post.new(:user_id => params[:user_id])
 
     respond_to do |format|
       format.html # new.html.erb

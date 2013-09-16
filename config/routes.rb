@@ -1,4 +1,6 @@
 SimpleCMS::Application.routes.draw do
+  get "user_pages/show"
+
   get "fixed_pages/home"
 
   get "fixed_pages/logout"
@@ -6,8 +8,11 @@ SimpleCMS::Application.routes.draw do
   get "fixed_pages/error"
 
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
-  match "/signup", to: "users#new"
+  match "/signup", to: "users#new", via: 'get'
+  match "/signin", to: "sessions#new", via: 'get'
+  match "/signout", to: "sessions#destroy", via: 'delete'
 
   resources :comments
 

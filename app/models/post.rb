@@ -11,7 +11,16 @@
 #
 
 class Post < ActiveRecord::Base
-  attr_accessible :content, :title
+  attr_accessible :content, :title, :user_id
   belongs_to :user
   has_many :comments
+
+  # returns the first up to MAX character of a post.
+  def content_summary(max)
+    if self.content.length >= max
+      self.content.slice(0..max) + "..."
+    else
+      self.content
+    end
+  end
 end

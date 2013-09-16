@@ -15,6 +15,10 @@
   <%= @user.email %>
 </p>
 
+<p>
+  <b>Blog</b>
+  <%= link_to "Blog page", user_pages_show_path(:user_id => @user) %>
+</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

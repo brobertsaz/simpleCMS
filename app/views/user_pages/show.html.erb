@@ -1,0 +1,25 @@
+<div class="title_bar"><h1>Blog by <%= "#{@user.first_name} #{@user.last_name}"%> </h1></div>
+<div class="container">
+  <div id="left_pane">
+    <h2>Recent Posts</h2>
+    <% @recent_posts.each do |recent_post| %>
+      <h3><%= recent_post.title %></h3>
+      <p><%= recent_post.content_summary(511) %></p>
+      <br />
+    <% end %>
+
+  </div>
+  <div id="right_pane">
+    <ul>
+      <% @older_posts.each do |older_post| %>
+        <li><%= older_post.title %></li>
+      <% end %>
+      <%  if @posts_length > 8  %>
+        <li><%= link_to("Older posts", posts_path(:user_id => @user.id)) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<%= link_to "New Post", new_post_path(:user_id => @user.id) %>
+
