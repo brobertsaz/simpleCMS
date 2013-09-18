@@ -3,21 +3,24 @@
   <div id="left_pane">
     <h2>Recent Posts</h2>
     <% @recent_posts.each do |recent_post| %>
-      <h3><%= recent_post.title %></h3>
+      <h3><%= link_to recent_post.title, post_path(recent_post) %></h3>
       <p><%= recent_post.content_summary(511) %></p>
       <br />
     <% end %>
 
   </div>
   <div id="right_pane">
+    <%  if @posts_length > 4  %>
+    <h3>Archive</h3>
     <ul>
       <% @older_posts.each do |older_post| %>
-        <li><%= older_post.title %></li>
+        <li><%= link_to older_post.title, post_path(older_post) %></li>
       <% end %>
       <%  if @posts_length > 8  %>
         <li><%= link_to("Older posts", posts_path(:user_id => @user.id)) %></li>
       <% end %>
     </ul>
+    <% end %>
   </div>
 </div>
 
