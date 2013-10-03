@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.find(:all, :conditions => [ "user_id = ?", params[:user_id]], :order => "created_at DESC") || Post.find(:all, :order => "created_at ASC")
+    if params[:user_id]
+      @posts = Post.find(:all, :conditions => [ "user_id = ?", params[:user_id]], :order => "created_at DESC")
+    else
+      @posts = Post.find(:all, :order => "created_at ASC")
+    end
 
     respond_to do |format|
       format.html # index.html.erb

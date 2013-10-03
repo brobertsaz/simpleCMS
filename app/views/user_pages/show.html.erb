@@ -1,28 +1,36 @@
-<div class="title_bar"><h1>Blog by <%= "#{@user.first_name} #{@user.last_name}"%> </h1></div>
-<div class="container">
-  <div id="left_pane">
-    <h2>Recent Posts</h2>
-    <% @recent_posts.each do |recent_post| %>
-      <h3><%= link_to recent_post.title, post_path(recent_post) %></h3>
-      <p><%= recent_post.content_summary(511) %></p>
-      <br />
-    <% end %>
 
+  <div class="row">
+    <div class="offset1 span11">
+      <div class="title_bar">
+        <h1>Blog by <%= "#{@user.first_name} #{@user.last_name}"%></h1>
+      </div>
+    </div>
   </div>
-  <div id="right_pane">
-    <%  if @posts_length > 4  %>
-    <h3>Archive</h3>
-    <ul>
-      <% @older_posts.each do |older_post| %>
-        <li><%= link_to older_post.title, post_path(older_post) %></li>
+  <div class="row">
+    <div id="left_pane" class="well offset1 span8">
+      <h2>Recent Posts</h2>
+      <hr />
+      <% @recent_posts.each do |recent_post| %>
+        <h3><%= link_to recent_post.title, post_path(recent_post) %></h3>
+        <p><%= sanitize Nokogiri::HTML::fragment(sanitize(recent_post.content_summary(900).gsub("h1", "h4").gsub("h2", "h4").gsub("h3", "h4"), :tags => ["strong", "em", "b", "i", "p", "code", "pre", "tt", "samp", "kbd", "var", "sub", "sup", "dfn", "cite", "big", "small", "address", "hr", "br", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "dl", "dt", "dd", "abbr", "acronym", "a", "img", "blockquote", "del", "ins"])).to_xml  %></p>
+        <br />
       <% end %>
-      <%  if @posts_length > 8  %>
-        <li><%= link_to("Older posts", posts_path(:user_id => @user.id)) %></li>
+
+    </div>
+    <div id="right_pane" class="well span3">
+      <%  if @posts_length > 4  %>
+      <h3>Older Posts</h3>
+      <hr />
+      <ul>
+        <% @older_posts.each do |older_post| %>
+          <li><%= link_to older_post.title, post_path(older_post) %></li>
+        <% end %>
+        <%  if @posts_length > 8  %>
+          <li><%= link_to("Archive", posts_path(:user_id => @user.id)) %></li>
+        <% end %>
+      </ul>
       <% end %>
-    </ul>
-    <% end %>
+    </div>
   </div>
-</div>
 
-<%= link_to "New Post", new_post_path(:user_id => @user.id) %>
-
+  <%= link_to "New Post", new_post_path(:user_id => @user.id) %>

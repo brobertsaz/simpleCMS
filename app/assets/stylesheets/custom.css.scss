@@ -1,0 +1,43 @@
+@import "bootstrap";
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+    .not-center {
+    	text-align: left;
+    }
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+#left_pane {
+	overflow: hidden;
+	word-wrap: break-word;
+	pre {
+
+	}
+	h4 {
+		font-style: oblique;
+	}
+}
+
+.navbar .brand {
+  margin-left: 20px;
+}

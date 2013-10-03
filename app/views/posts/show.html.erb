@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
-
-<h1><%= @post.title %></h1>
-
-
-<p>
-  <%= @post.content %>
-</p>
-
+<div class="row">
+  <h1 class="offset1 span10"><%= @post.title %></h1>
+  
+</div>
+<hr />
+<div class="row">
+  <div class="offset1 span10">
+    <%= sanitize Nokogiri::HTML::fragment(sanitize(@post.content.gsub("h1", "h4").gsub("h2", "h4").gsub("h3", "h4"), :tags => ["strong", "em", "b", "i", "p", "code", "pre", "tt", "samp", "kbd", "var", "sub", "sup", "dfn", "cite", "big", "small", "address", "hr", "br", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "dl", "dt", "dd", "abbr", "acronym", "a", "img", "blockquote", "del", "ins"])).to_xml  %>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', user_pages_show_path(:user_id => @post.user_id) %>
